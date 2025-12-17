@@ -11,6 +11,7 @@ A Python library for generating and solving mazes using various algorithms.
 - **Maze Solving Algorithms:**
   - Breadth-First Search (BFS)
   - Depth-First Search (DFS)
+  - A* Search
 
 - **Visualization:** ASCII art display of mazes with optional solution path
 
