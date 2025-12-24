@@ -1,2 +1,2 @@
-# No external dependencies required for basic functionality
-# Add any future dependencies here
+# Tkinter is included with Python - no external dependencies required
+# The GUI uses only standard library modules
