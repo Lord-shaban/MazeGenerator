@@ -14,6 +14,7 @@ class DFSMazeSolver:
         self.rows = maze.rows
         self.cols = maze.cols
 
+
     def solve(self):
         """
         Solves the maze using DFS.
@@ -23,17 +24,17 @@ class DFSMazeSolver:
 
         start, goal = self._find_start_and_goal()
 
-        stack = [start]                 # DFS stack
-        visited = set([start])          # Visited cells
-        parent = {start: None}          # Parent tracking for path reconstruction
+        stack = [start]                 
+        visited = set([start])          
+        parent = {start: None}
+        explored = [] # <--- 1. Added list
 
-        # Movement directions: Up, Down, Left, Right
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
         while stack:
             r, c = stack.pop()
+            explored.append((r, c)) # <--- 2. Track explored
 
-            # Stop when goal is reached
             if (r, c) == goal:
                 break
 
@@ -45,7 +46,8 @@ class DFSMazeSolver:
                     parent[(nr, nc)] = (r, c)
                     stack.append((nr, nc))
 
-        return self._reconstruct_path(parent, goal)
+        # <--- 3. Return tuple
+        return self._reconstruct_path(parent, goal), explored
 
     # -------------------------------------------------
     # Helper functions

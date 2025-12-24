@@ -42,6 +42,7 @@ def reconstruct_path(node):
 def a_star(maze, start, goal):
     open_list = []
     closed_set = set()
+    explored = []  # <--- 1. Added list
 
     start_node = Node(start[0], start[1], g=0,
                       h=heuristic(start, goal))
@@ -49,9 +50,10 @@ def a_star(maze, start, goal):
 
     while open_list:
         current = heapq.heappop(open_list)
+        explored.append((current.x, current.y)) # <--- 2. Track explored
 
         if (current.x, current.y) == goal:
-            return reconstruct_path(current)
+            return reconstruct_path(current), explored # <--- 3. Return tuple
 
         closed_set.add((current.x, current.y))
 
@@ -65,5 +67,4 @@ def a_star(maze, start, goal):
 
             heapq.heappush(open_list, neighbor)
 
-    return None  # No path found
-
+    return None, explored  # <--- 4. Return tuple (even if fail)

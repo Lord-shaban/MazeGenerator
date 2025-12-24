@@ -1,4 +1,5 @@
 def bfs_maze_solver(maze, start, end, wall_char='#'):
+
     '''
     Finds the shortest path between a start and end point in a grid using (Breadth-First Search (BFS)).
         #===========
@@ -18,17 +19,20 @@ def bfs_maze_solver(maze, start, end, wall_char='#'):
         # - List[tuple]: Returns a list of coordinates [(r, c), (r, c), ...] representing the path from start to end (inclusive).
         # - None: Returns None if the end is unreachable (blocked by walls).
     '''
+
     rows, cols = len(maze), len(maze[0])
     queue = [(start, [start])]
     visited = {start}
-    # Directions: Up, Down, Left, Right.
+    explored = [] # <--- 1. Added list
+    
     moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     while queue:
         (curr_r, curr_c), path = queue.pop(0)
+        explored.append((curr_r, curr_c)) # <--- 2. Track explored
 
         if (curr_r, curr_c) == end:
-            return path
+            return path, explored # <--- 3. Return tuple
 
         for dr, dc in moves:
             nr, nc = curr_r + dr, curr_c + dc
@@ -37,7 +41,7 @@ def bfs_maze_solver(maze, start, end, wall_char='#'):
                 visited.add((nr, nc))
                 queue.append(((nr, nc), path + [(nr, nc)]))
 
-    return None
+    return None, explored # <--- 4. Return tuple
 
 #============================================================================================================
 # ==================== 2. The Test Suite =========================
